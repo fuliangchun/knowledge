@@ -32,8 +32,7 @@ CHANGE MASTER TO
 ```
 
 
-
-<img src="/Users/fuliangchun/Desktop/屏幕快照 2020-12-19 下午5.34.08.png" style="zoom:50%;" />
+![](https://fuliangchun.github.io/knowledge/images/masterslave.png)
 
 如图就是mysql的主从复制的流程图.主库写入binlog会有一个dump线程将binlog同步到从库。从库收到之后写入从库的relay log，relay log再起线程写入数据。
 
@@ -56,8 +55,7 @@ CHANGE MASTER TO
 
 
 这里要提一下双主，双主是互为主从，但是同一时刻都是只有一个接受用户请求的，在原来的A故障或者是需要切换的时候另外一台才会接受请求.图中即为双主的切换过程
-
-<img src="/Users/fuliangchun/Desktop/屏幕快照 2020-12-19 下午5.59.30.png" style="zoom:50%;" />
+![](https://fuliangchun.github.io/knowledge/images/masterslaveprocess.png)
 
 
 

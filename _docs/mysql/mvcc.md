@@ -27,8 +27,7 @@ MDL加锁是一种默认的行为，主要是为了解决在进行select或者dm
 即select和dml操作会给表加上dml读锁，而ddl操作会加上DML写锁。
 
 DML读写和DML写写是互斥的。这很容易理解。同时也需要注意的一点就是不要在业务高峰的时候执行DDL操作，因为这会给表加上MDL表锁，这意味着在DDL操作之后的请求都会被阻塞.
-
-<img src="/Users/fuliangchun/Desktop/屏幕快照 2020-12-19 下午3.43.27.png" style="zoom:50%;" />
+![](https://fuliangchun.github.io/knowledge/images/mdl.png)
 
 **如何安全的给表加字段**
 
@@ -56,7 +55,7 @@ InnoDB支持行级锁。
 
 当系统中多个并发线程出现了循环依赖的话就会引发死锁的问题
 
-<img src="/Users/fuliangchun/Desktop/屏幕快照 2020-12-19 下午3.55.27.png" style="zoom:50%;" />
+![](https://fuliangchun.github.io/knowledge/images/deadlock.png)
 
 在事务A中拿到了id=1的行锁，需要获得id=2的行锁，事务B中拿到了id=2的行锁，需要获得id=1的行锁，从而造成了死锁
 
@@ -165,11 +164,10 @@ Undo log有两种
 
 * insert Undo log    只对本事务可见，对其他事务不可见(事务隔离性要求),这种undo log在事务提交后直接删除，不需要purge线程进行删除。其中没有记录只是记录了表名 与一些唯一键字段
 
-  <img src="/Users/fuliangchun/Desktop/屏幕快照 2020-12-12 下午3.11.31.png" style="zoom:50%;" />
+![](https://fuliangchun.github.io/knowledge/images/insertundolog.png)
 
 * update Undo log  update类型的undo log和insert的不同，这种类型的Undolog需要提供MVCC的支持(可能多个事务在操作同一行数据)，因此不能再事务提交后就删除.需要后续等purge线程确定了没有多版本影响之后才进行删除。另外可以看出在记录undo log会记录旧的事务id，基于回滚指针，另外还会记录更新修改的列的Old Value，这些是用来进行回滚的.当有多个线程同时操作一条数据的时候，生成的undolog可以看成是一个链表.
-
-<img src="/Users/fuliangchun/Desktop/屏幕快照 2020-12-12 下午3.13.04.png" style="zoom:50%;" />
+![](https://fuliangchun.github.io/knowledge/images/updateundolog.png)
 
 Undo log通常是用来为我们做事务的一致性的。在修改数据的时候记录undo log，当事务进行回滚，找到对应的undo log记录，可以获得数据的历史的值.可以理解 事务回滚就是一条反向的执行语句 insert->delete，delete-> insert 。。。。。
 

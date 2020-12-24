@@ -6,7 +6,7 @@ order: 1
 
 
 ### mysql架构
-![mysql架构](images/architech.png)
+![mysql架构](https://fuliangchun.github.io/knowledge/images/architech.png)
 
 * server层
   * 连接器  处理连接，授权认证，安全等。wait_timeout 用来控制连接的空闲超时时间，默认值是 8 小时。现在应用都是长连接，如果发生mysql服务内存涨的特别快(连接占用的资源需要断开之后才会释放)
@@ -60,12 +60,12 @@ order: 1
 * 对于redo log和binlog来说，写都是顺序写的,磁盘顺序写很快
 * 同时在写入磁盘调用内核的fsync的时候会进行组提交策略，就是会将多个redo log的写合并到一起，一次性执行写入(所以实际的Io并不会比单次写数据库文件多很多)
 
-![](images/wallog.png)
+![](https://fuliangchun.github.io/knowledge/images/wallog.png)
 
 ##### Redo log
 
 需要说明一下的就是redo log是inno DB存储引擎独有的**redo log是有固定大小的**,如下图，假设设置了配置为一组 4 个文件，每个文件的大小是 1GB的话.需要说一下的是redo log是循环写入的。每次触发一次从log文件flush到数据文件的操作就往后移动check point，而每次往日志文件中记录则会移动write pos，当二者接近的时候就会触发强制性的flush数据文件的操作。
-![](images/redolog.png)
+![](https://fuliangchun.github.io/knowledge/images/redolog.png)
 
 有了redo log之后就可以保证数据库在发生异常重启的时候,之前提交的记录都不会丢失,crash-safe。也有了这种机制，所以Inno DB才实现了ACID中的持久性,以及协助实现了一致性
 
@@ -85,7 +85,7 @@ binlog也时长用来做数据库的备份工作,主从之间的复制也是基�
 
 在InnoDB中dml 的执行顺序
 
-![](images/executeorder.png)
+![](https://fuliangchun.github.io/knowledge/images/executeorder.png)
 
 上面浅色的内容是在引擎层执行的，深色的是在server层执行的。**注意更新的时候是首先将数据更新到引擎的内存中的**
 
@@ -130,7 +130,7 @@ InnoDB从异常中恢复其实默认就会读取redo log和binlog，然后判断
 * redo log 处于prepare状态，但是binlog中有数据，则提交这个事务
 
 
-![](images/transaction.png)
+![](https://fuliangchun.github.io/knowledge/images/transaction.png)
 
 事务的执行流程：
 

@@ -27,7 +27,7 @@ InnoDB中的索引一般都指的是B+ 树索引.
 * 普通二叉树 会有极端情况下形成一条单链，且二叉树数据多的时候深度过高
 * AVL树 是一种优化过后的二叉树，其可以在数据插入过程中维持平衡(左子树和右子树相差不能超过1)缺点是数据插入过程中移动频繁，数据多深度过高
 * 红黑树 不像AVL那样追求绝对平衡，最求一种相对平衡，两个子树之间的高度不能超过一半。通过结点颜色变化来做的(两个红色的结点不能相连，每个子树的黑色结点个数相同) 确定是数据多 树的深度过高
-  <img src="/Users/fuliangchun/Desktop/屏幕快照 2020-12-12 下午11.11.06.png" style="zoom:50%;" />
+![](https://fuliangchun.github.io/knowledge/images/redblacktree.png)
 
 这几种数据结构都有一个严重的问题就是树的深度过深而造成树的深度过高，从而影响查询效率.所以mysql采用B树(B树的变种)的结构来索引。
 
@@ -37,8 +37,7 @@ InnoDB中的索引一般都指的是B+ 树索引.
 
 * 每个结点都有M个子节点  M是由单个B树的阶(degree)来决定的，一般的可以认定为一个内存页(4k/16k)能够保存的数据个数来决定的
 * 叶子结点都在同一层
-
-<img src="/Users/fuliangchun/Desktop/屏幕快照 2020-12-12 下午11.32.32.png" style="zoom:50%;" />
+![](https://fuliangchun.github.io/knowledge/images/btree.png)
 
 
 
