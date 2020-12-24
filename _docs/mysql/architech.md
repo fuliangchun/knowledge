@@ -1,5 +1,5 @@
 ---
-title: architech
+title: mysql架构
 category: mysql
 order: 1
 ---

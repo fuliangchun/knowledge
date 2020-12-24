@@ -1,5 +1,5 @@
 ---
-title: mysqlindex
+title: mysql高可用
 category: mysql
 order: 4
 ---

@@ -1,5 +1,5 @@
 ---
-title: mysqlindex
+title: mysql索引
 category: mysql
 order: 3
 ---
